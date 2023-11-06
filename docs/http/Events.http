@@ -1,0 +1,27 @@
+
+# This file can be used with the REST Client VSCode Extension
+# @see https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+#################################################################################
+
+@apiBasePath = http://localhost:8080
+# @apiBasePath = https://ord-reference-application.cfapps.sap.hana.ondemand.com/
+
+# TenantIDs for Tenant T1
+@localTenantId = T1
+@sapGlobalTenantId = 740000101
+
+#################################################################################
+
+# Get the generic SAP Event Catalog definition for the ODM CostObject events:
+
+GET {{apiBasePath}}/sap-events/v1/odm-finance-costobject.asyncapi2.json HTTP/1.1
+content-type: application/json
+
+#################################################################################
+
+# Get the SAP Event Catalog definition for a specific tenant
+
+GET {{apiBasePath}}/sap-events/v1/odm-finance-costobject.asyncapi2.json HTTP/1.1
+content-type: application/json
+sap-global-tenant-id: {{sapGlobalTenantId}}

@@ -1,0 +1,42 @@
+# This file can be used with the REST Client VSCode Extension
+# @see https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+#################################################################################
+
+@apiBasePath = http://localhost:8080
+# @apiBasePath = https://ord-reference-application.cfapps.sap.hana.ondemand.com/
+
+#################################################################################
+
+# Get all constellations
+
+GET {{apiBasePath}}/astronomy/v1/constellations HTTP/1.1
+content-type: application/json
+
+#################################################################################
+
+# Get an existing constellation
+
+GET {{apiBasePath}}/astronomy/v1/constellations/And HTTP/1.1
+content-type: application/json
+
+#################################################################################
+
+# Get a non-existing constellation
+
+GET {{apiBasePath}}/astronomy/v1/constellations/NUL HTTP/1.1
+content-type: application/json
+
+#################################################################################
+
+# Invalid request with ID not matching constraints
+
+GET {{apiBasePath}}/astronomy/v1/constellations/invalid HTTP/1.1
+content-type: application/json
+
+#################################################################################
+
+# Request for unknown route / resource
+
+GET {{apiBasePath}}/astronomy/v1/unkownResource HTTP/1.1
+content-type: application/json

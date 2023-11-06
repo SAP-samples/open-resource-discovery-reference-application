@@ -1,0 +1,25 @@
+# /node_modules/* in the project root is ignored by default
+
+# build artefacts
+dist/*
+reports/*
+
+# deps
+/deps
+
+# static web app
+static/*
+
+# data definition files
+**/*.d.ts
+
+# 3rd party libs
+/src/public/
+
+# custom definition files
+/src/types/
+
+# project config files
+.eslintrc.cjs
+jest.config.js
+jest.setup.js

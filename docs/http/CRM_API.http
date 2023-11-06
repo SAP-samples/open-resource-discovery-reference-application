@@ -1,0 +1,91 @@
+# This file can be used with the REST Client VSCode Extension
+# @see https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+#################################################################################
+
+@apiBasePath = http://localhost:8080
+# @apiBasePath = https://ord-reference-application.cfapps.sap.hana.ondemand.com/
+@apiMediaType = application/json
+
+# User: foo
+@apiAuthorization = Basic Zm9vOmJhcg==
+
+# User: bar
+# @apiAuthorization = Basic YmFyOmZvbw==
+
+# TenantIDs for Tenant T1
+@sapGlobalTenantId = 740000101
+
+# TenantIDs for Tenant T2
+# @sapGlobalTenantId = 5740000102
+
+
+#################################################################################
+
+# Get all customers
+
+GET {{apiBasePath}}/crm/v1/customers HTTP/1.1
+content-type: application/json
+Authorization: {{apiAuthorization}}
+
+#################################################################################
+
+# Get all customers (via basicAuth provided within URL)
+
+GET http://foo:bar@localhost:8080/crm/v1/customers HTTP/1.1
+content-type: application/json
+
+#################################################################################
+
+# Get an existing customer
+
+GET {{apiBasePath}}/crm/v1/customers/1 HTTP/1.1
+content-type: application/json
+Authorization: {{apiAuthorization}}
+
+#################################################################################
+
+# Get a non-existing customer
+
+GET {{apiBasePath}}/crm/v1/customers/512 HTTP/1.1
+content-type: application/json
+Authorization: {{apiAuthorization}}
+
+#################################################################################
+
+# Invalid request with ID not matching constraints
+
+GET {{apiBasePath}}/crm/v1/customers/-1 HTTP/1.1
+content-type: application/json
+Authorization: {{apiAuthorization}}
+
+#################################################################################
+
+# Request without Authorization
+
+GET {{apiBasePath}}/crm/v1/customers HTTP/1.1
+content-type: application/json
+
+
+#################################################################################
+
+# Request with unknown username / password
+
+GET {{apiBasePath}}/crm/v1/customers HTTP/1.1
+content-type: application/json
+Authorization: Basic ZnJpdHo6MTIzNDU2
+
+#################################################################################
+
+# Request for unknown route / resource
+
+GET {{apiBasePath}}/crm/v1/unkownResource HTTP/1.1
+content-type: application/json
+
+#################################################################################
+
+# Get OpenAPI Definition for the API
+
+GET {{apiBasePath}}/crm/v1/openapi/oas3.json HTTP/1.1
+content-type: application/json
+sap-global-tenant-id: {{sapGlobalTenantId}}

@@ -1,0 +1,24 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Server",
+      "type": "node",
+      "request": "launch",
+      "args": ["src/server.ts"],
+      "runtimeArgs": ["--import", "tsx/esm"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Debug current TS File",
+      "type": "node",
+      "request": "launch",
+      "args": ["${relativeFile}"],
+      "runtimeArgs": ["--import", "tsx/esm"],
+      "console": "integratedTerminal"
+    }
+  ]
+}

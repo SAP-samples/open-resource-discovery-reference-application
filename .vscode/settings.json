@@ -1,0 +1,38 @@
+{
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.importModuleSpecifierEnding": "index",
+  "javascript.preferences.quoteStyle": "single",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "markdown.extension.tableFormatter.enabled": false,
+  "editor.formatOnSaveMode": "file",
+  "markdown.extension.tableFormatter.normalizeIndentation": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "cSpell.words": [
+    "APIV",
+    "Fastify",
+    "IIFE",
+    "Kubernetes",
+    "asyncapi",
+    "buildpack",
+    "buildpacks",
+    "cfapps",
+    "codeframe",
+    "datacontenttype",
+    "eqeqeq",
+    "etag",
+    "linebreak",
+    "middlewares",
+    "ondemand",
+    "openapi",
+    "pino",
+    "preinstall",
+    "specversion",
+    "typeahead"
+  ],
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
+}

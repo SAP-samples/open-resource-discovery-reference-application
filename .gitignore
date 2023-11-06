@@ -1,0 +1,39 @@
+# Temp
+tmp
+.scannerwork
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# TypeScript
+/dist/
+*.tsbuildinfo
+
+# Dependency directories
+node_modules/
+
+# Output of 'npm pack'
+*.tgz
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Reports
+reports
+
+# Cache Directories
+.npm
+.eslintcache
+
+# dotenv environment variables file
+.env
+.env.test
+
+/manifest.yaml
+/deploy.sh
+/.cfignore
