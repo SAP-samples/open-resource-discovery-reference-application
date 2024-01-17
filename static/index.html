@@ -12,16 +12,21 @@
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <style>
+    .subtitle {
+      font-size: 1.1rem;
+    }
+
     .section {
       padding: 1.5rem;
     }
 
     .card .card-header-title {
       font-size: 1.2em;
+      padding: 8px 16px;
     }
 
     .card .card-content {
-      padding: 10px 16px;
+      padding: 10px 8px;
     }
 
     .card ul {
@@ -31,10 +36,6 @@
     .card ul ul {
       margin-top: 0;
       margin-bottom: 4px !important;
-    }
-
-    footer {
-      padding: 8px 0 !important;
     }
   </style>
 </head>
@@ -50,6 +51,8 @@
       <p class="subtitle">
         Example application for <a href="https://sap.github.io/open-resource-discovery/">Open Resource
           Discovery</a> (ORD).
+        Source Code: <a href="https://github.com/SAP-samples/open-resource-discovery-reference-application/">
+          github.com/SAP-samples</a>.
       </p>
     </div>
     <br />
@@ -127,19 +130,24 @@
             </header>
             <div class="card-content">
               <div class="content">
-                <h4>ORD .well-known configuration</h4>
+
                 <ul>
-                  <li><a href="/.well-known/open-resource-discovery">/.well-known/open-resource-discovery</a></li>
-                </ul>
-                <h4>ORD document endpoints</h4>
-                <ul>
+                  <li><strong>ORD .well-known configuration</strong></li>
+                  <ul>
+                    <li><a href="/.well-known/open-resource-discovery">/.well-known/open-resource-discovery</a></li>
+                  </ul>
                   <li>
-                    <a href="/open-resource-discovery/v1/documents/1">/open-resource-discovery/v1/documents/1</a>
+                    <strong>ORD document endpoints</strong>
                   </li>
-                  <li>
-                    <a href="/open-resource-discovery/v1/documents/2">/open-resource-discovery/v1/documents/2</a>
-                    <small>(system instance aware)</small>
-                  </li>
+                  <ul>
+                    <li>
+                      <a href="/open-resource-discovery/v1/documents/1">/open-resource-discovery/v1/documents/1</a>
+                    </li>
+                    <li>
+                      <a href="/open-resource-discovery/v1/documents/2">/open-resource-discovery/v1/documents/2</a>
+                      <small>(system instance aware)</small>
+                    </li>
+                  </ul>
                 </ul>
               </div>
             </div>
