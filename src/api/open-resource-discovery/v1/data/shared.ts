@@ -1,9 +1,9 @@
 import { AccessStrategy, ConsumptionBundle, Package, Product, SystemInstance } from '@sap/open-resource-discovery'
-import { readJSONSync } from 'fs-extra/esm'
 import path from 'path'
 import { PUBLIC_URL } from '../../../../config.js'
+import { readFileSync } from 'fs'
 
-const packageJson = readJSONSync(path.resolve(process.cwd(), 'package.json')) as {
+const packageJson = JSON.parse(readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf-8')) as {
   description: string
 }
 
