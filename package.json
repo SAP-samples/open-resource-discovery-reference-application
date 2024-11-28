@@ -17,8 +17,8 @@
     "prettier": "prettier --write \"**/*.{json,yml,yaml,md}\"",
     "prettier:ci": "prettier --check \"**/*.{json,yml,yaml,md}\"",
     "format": "npm run prettier && npm run lint",
-    "test": "node node_modules/jest/bin/jest.js --watchAll",
-    "test:ci": "node node_modules/jest/bin/jest.js --ci --collectCoverage"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
+    "test:ci": "node --experimental-vm-modules node_modules/jest/bin/jest.js --ci --collectCoverage"
   },
   "repository": {
     "type": "git",

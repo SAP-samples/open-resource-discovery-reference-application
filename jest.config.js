@@ -9,7 +9,7 @@ const tsconfig = loadJson("./tsconfig.json");
 const { compilerOptions } = tsconfig;
 
 export default {
-  preset: "ts-jest",
+  preset: "ts-jest/presets/default-esm",
   coverageDirectory: "reports/jest-coverage",
   moduleFileExtensions: ["js", "json", "ts", "d.ts"],
   reporters: ["default"],
