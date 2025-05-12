@@ -150,10 +150,10 @@ describe('Server Integration Tests', () => {
       expect(body).toHaveProperty('openResourceDiscoveryV1')
     })
 
-    it('should return ORD document 1', async () => {
+    it('should return static system-instance perspective ORD document', async () => {
       const response = await app.inject({
         method: 'GET',
-        url: '/open-resource-discovery/v1/documents/1',
+        url: '/open-resource-discovery/v1/documents/system-version',
       })
 
       expect(response.statusCode).toBe(200)
@@ -161,12 +161,12 @@ describe('Server Integration Tests', () => {
       expect(body).toHaveProperty('openResourceDiscovery')
     })
 
-    it('should return tenant-aware ORD document 2', async () => {
+    it('should return tenant-aware, system-instance ORD document', async () => {
       const response = await app.inject({
         method: 'GET',
-        url: '/open-resource-discovery/v1/documents/2',
+        url: '/open-resource-discovery/v1/documents/system-instance',
         headers: {
-          'sap-local-tenant-id': 'T1',
+          'local-tenant-id': 'T1',
         },
       })
 
@@ -195,7 +195,7 @@ describe('Server Integration Tests', () => {
         method: 'GET',
         url: '/sap-events/v1/odm-finance-costobject.asyncapi2.json',
         headers: {
-          'sap-local-tenant-id': 'T1',
+          'local-tenant-id': 'T1',
         },
       })
 

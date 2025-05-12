@@ -185,6 +185,11 @@ export function getOrdDocumentForTenant(tenantId?: string): ORDDocument {
   if (!tenantId) {
     return tenantSpecificOrdDocument
   }
+
+  tenantSpecificOrdDocument.describedSystemInstance = {
+    localId: tenantId,
+  }
+
   tenantSpecificOrdDocument.description += `\nThis ORD Document is specific to tenant "${tenantId}"`
 
   const tenantConfig = tenants[tenantId]
