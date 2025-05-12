@@ -8,6 +8,7 @@ import {
   customAccessStrategyGlobalTenantId,
   customAccessStrategyLocalTenantId,
   describedSystemInstance,
+  describedSystemVersion,
   openAccessStrategy,
   ordReferenceAppApiPackage,
 } from './shared.js'
@@ -63,6 +64,7 @@ const ordDocument2: ORDDocument = {
   openResourceDiscovery: '1.10',
   policyLevels: ['sap:core:v1'],
   perspective: 'system-version',
+  describedSystemVersion: describedSystemVersion,
   description:
     'This is an example ORD document which is protected and potentially system instance aware (as are its resources).',
   describedSystemInstance: describedSystemInstance,

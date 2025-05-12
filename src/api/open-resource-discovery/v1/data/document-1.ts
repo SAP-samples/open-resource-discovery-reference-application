@@ -13,6 +13,7 @@ import {
   appNamespace,
   customAccessStrategyGlobalTenantId,
   customAccessStrategyLocalTenantId,
+  describedSystemVersion,
 } from './shared.js'
 
 export const constellationEntityType: EntityType = {
@@ -107,6 +108,7 @@ export const ordDocument1: ORDDocument = {
   openResourceDiscovery: '1.10',
   policyLevels: ['sap:core:v1'],
   perspective: 'system-version',
+  describedSystemVersion: describedSystemVersion,
   description: 'This is an example ORD document which is unprotected and openly accessible.',
   describedSystemInstance: describedSystemInstance,
   products: [product],
