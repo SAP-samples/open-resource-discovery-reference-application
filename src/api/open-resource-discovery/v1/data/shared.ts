@@ -11,6 +11,7 @@ import { PUBLIC_URL } from '../../../../config.js'
 import { readFileSync } from 'fs'
 
 const packageJson = JSON.parse(readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf-8')) as {
+  version: string
   description: string
 }
 
@@ -29,7 +30,7 @@ export const describedSystemInstance: SystemInstance = {
   baseUrl: PUBLIC_URL,
 }
 export const describedSystemVersion: SystemVersion = {
-  version: '1.0.0', // # TODO: Could be read from package.json version
+  version: packageJson.version,
 }
 
 export const product: Product = {
