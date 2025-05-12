@@ -61,9 +61,11 @@ const crmV1ApiResource: APIResource = {
  * This is the complete ORD document that will be served through the ORD Document API
  */
 const ordDocument2: ORDDocument = {
-  openResourceDiscovery: '1.6',
-  policyLevel: 'sap:core:v1',
-  description: 'This is an example ORD document which is protected and system instance aware (as are its resources).',
+  openResourceDiscovery: '1.10',
+  policyLevels: ['sap:core:v1'],
+  perspective: 'system-version',
+  description:
+    'This is an example ORD document which is protected and potentially system instance aware (as are its resources).',
   describedSystemInstance: describedSystemInstance,
   apiResources: [crmV1ApiResource],
   eventResources: [],
@@ -76,6 +78,8 @@ const ordDocument2: ORDDocument = {
  */
 export function getOrdDocument2ForTenant(localTenantId?: string): ORDDocument {
   const tenantSpecificOrdDocument1 = _.cloneDeep(ordDocument2)
+
+  tenantSpecificOrdDocument1.perspective = 'system-instance'
 
   // If we don't provide a local tenant Id, we'll return the ORD document without tenant specific modifications
   // An alternative to this could be to throw an invalid user input error and require to provide a tenant

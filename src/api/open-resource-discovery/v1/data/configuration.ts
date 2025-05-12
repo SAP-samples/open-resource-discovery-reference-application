@@ -7,11 +7,22 @@ export const ordConfiguration: ORDConfiguration = {
       {
         url: '/open-resource-discovery/v1/documents/1',
         accessStrategies: [openAccessStrategy],
+        perspective: 'system-version',
+      },
+      {
+        url: '/open-resource-discovery/v1/documents/1',
+        accessStrategies: [openAccessStrategy],
+        perspective: 'system-instance',
       },
       {
         url: '/open-resource-discovery/v1/documents/2',
-        accessStrategies: [customAccessStrategyGlobalTenantId, customAccessStrategyLocalTenantId, openAccessStrategy],
-        systemInstanceAware: true,
+        accessStrategies: [openAccessStrategy],
+        perspective: 'system-version',
+      },
+      {
+        url: '/open-resource-discovery/v1/documents/2',
+        accessStrategies: [customAccessStrategyGlobalTenantId, customAccessStrategyLocalTenantId],
+        perspective: 'system-instance',
       },
     ],
   },

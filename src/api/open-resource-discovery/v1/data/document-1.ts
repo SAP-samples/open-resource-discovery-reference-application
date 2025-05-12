@@ -104,8 +104,9 @@ const odmFinanceCostObjectV1EventResource: EventResource = {
  * This is the complete ORD document that will be served through the ORD Document API
  */
 export const ordDocument1: ORDDocument = {
-  openResourceDiscovery: '1.6',
-  policyLevel: 'sap:core:v1',
+  openResourceDiscovery: '1.10',
+  policyLevels: ['sap:core:v1'],
+  perspective: 'system-version',
   description: 'This is an example ORD document which is unprotected and openly accessible.',
   describedSystemInstance: describedSystemInstance,
   products: [product],
