@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import { APIResource, EntityType, EventResource, ORDDocument } from '@sap/open-resource-discovery'
 import { odmFinanceCostObjectEventConfig } from '../../../../event/odm-finance-costobject/v1/config.js'
-
+import { tenants } from '../../../../data/user/tenants.js'
+import { crmV1ApiConfig } from '../../../crm/v1/config.js'
 import { astronomyV1ApiConfig } from '../../../astronomy/v1/config.js'
 import {
   describedSystemInstance,
@@ -14,6 +15,7 @@ import {
   customAccessStrategyGlobalTenantId,
   customAccessStrategyLocalTenantId,
   describedSystemVersion,
+  basicAuthConsumptionBundle,
 } from './shared.js'
 
 export const constellationEntityType: EntityType = {
@@ -69,6 +71,50 @@ const astronomyV1ApiResource: APIResource = {
   ],
 }
 
+const crmV1ApiResource: APIResource = {
+  ordId: `${appNamespace}:apiResource:${crmV1ApiConfig.apiNamespace}:${crmV1ApiConfig.apiMajorVersion}`,
+  title: crmV1ApiConfig.apiName,
+  shortDescription: 'The CRM API allows you to manage customers...',
+  description: 'This API is **protected** via BasicAuth and is tenant aware',
+  version: crmV1ApiConfig.apiVersion,
+  lastUpdate: new Date().toISOString(),
+  visibility: 'internal',
+  releaseStatus: 'beta',
+  partOfPackage: ordReferenceAppApiPackage.ordId,
+  partOfConsumptionBundles: [
+    {
+      ordId: basicAuthConsumptionBundle.ordId,
+    },
+  ],
+  apiProtocol: 'rest',
+  apiResourceLinks: [
+    {
+      type: 'api-documentation',
+      url: '/swagger-ui.html?urls.primaryName=CRM%20V1%20API',
+    },
+  ],
+  resourceDefinitions: [
+    {
+      type: 'openapi-v3',
+      mediaType: 'application/json',
+      url: '/crm/v1/openapi/oas3.json',
+      accessStrategies: [customAccessStrategyGlobalTenantId, customAccessStrategyLocalTenantId, openAccessStrategy],
+    },
+  ],
+  entryPoints: [`/${crmV1ApiConfig.apiEntryPoint}`],
+  extensible: {
+    supported: 'manual',
+    description: 'This API can be extended with custom fields.',
+  },
+  changelogEntries: [
+    {
+      version: '0.3.0',
+      date: '2021-05-25',
+      releaseStatus: 'beta',
+    },
+  ],
+}
+
 const odmFinanceCostObjectV1EventResource: EventResource = {
   ordId: `${appNamespace}:eventResource:${odmFinanceCostObjectEventConfig.eventResourceName}:${odmFinanceCostObjectEventConfig.eventResourceMajorVersion}`,
   title: odmFinanceCostObjectEventConfig.eventResourceTitle,
@@ -104,17 +150,17 @@ const odmFinanceCostObjectV1EventResource: EventResource = {
 /**
  * This is the complete ORD document that will be served through the ORD Document API
  */
-export const ordDocument1: ORDDocument = {
+export const ordDocument: ORDDocument = {
   openResourceDiscovery: '1.10',
   policyLevels: ['sap:core:v1'],
   perspective: 'system-version',
   describedSystemVersion: describedSystemVersion,
-  description: 'This is an example ORD document which is unprotected and openly accessible.',
+  description: 'This is an example ORD document which describes the entire reference app in one document.',
   describedSystemInstance: describedSystemInstance,
   products: [product],
   packages: [ordReferenceAppApiPackage, ordReferenceAppEventsPackage],
   consumptionBundles: [noAuthConsumptionBundle],
-  apiResources: [astronomyV1ApiResource],
+  apiResources: [astronomyV1ApiResource, crmV1ApiResource],
   eventResources: [odmFinanceCostObjectV1EventResource],
   entityTypes: [constellationEntityType],
   tombstones: [
@@ -129,17 +175,25 @@ export const ordDocument1: ORDDocument = {
  * As we want to demonstrate a tenant specific ORD Document,
  * We'll return a different one per tenant, respecting some tenant configurations
  */
-export function getOrdDocument1ForTenant(localTenantId?: string): ORDDocument {
-  const tenantSpecificOrdDocument1 = _.cloneDeep(ordDocument1)
+export function getOrdDocumentForTenant(tenantId?: string): ORDDocument {
+  const tenantSpecificOrdDocument = _.cloneDeep(ordDocument)
 
-  tenantSpecificOrdDocument1.perspective = 'system-instance'
+  tenantSpecificOrdDocument.perspective = 'system-instance'
 
   // If we don't provide a local tenant Id, we'll return the ORD document without tenant specific modifications
   // An alternative to this could be to throw an invalid user input error and require to provide a tenant
-  if (!localTenantId) {
-    return tenantSpecificOrdDocument1
+  if (!tenantId) {
+    return tenantSpecificOrdDocument
   }
-  tenantSpecificOrdDocument1.description += `\nThis ORD Document is specific to tenant "${localTenantId}"`
+  tenantSpecificOrdDocument.description += `\nThis ORD Document is specific to tenant "${tenantId}"`
 
-  return tenantSpecificOrdDocument1
+  const tenantConfig = tenants[tenantId]
+  if (!tenantConfig.enabledApis.includes('crm')) {
+    // Do not describe the CRM V1 API if the tenant does not have it available
+    _.remove(tenantSpecificOrdDocument.apiResources || [], {
+      ordId: crmV1ApiResource.ordId,
+    })
+  }
+
+  return tenantSpecificOrdDocument
 }
