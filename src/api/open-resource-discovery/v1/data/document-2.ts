@@ -21,7 +21,6 @@ const crmV1ApiResource: APIResource = {
   lastUpdate: new Date().toISOString(),
   visibility: 'internal',
   releaseStatus: 'beta',
-  systemInstanceAware: true,
   partOfPackage: ordReferenceAppApiPackage.ordId,
   partOfConsumptionBundles: [
     {

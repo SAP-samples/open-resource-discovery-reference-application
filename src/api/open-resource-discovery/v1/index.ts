@@ -4,7 +4,7 @@ import { globalTenantIdToLocalTenantIdMapping } from '../../../data/user/tenantM
 import { getTenantIdsFromHeader } from '../../shared/validateUserAuthorization.js'
 import { ordDocumentApiV1Config } from './config.js'
 import { ordConfiguration } from './data/configuration.js'
-import { ordDocument1 } from './data/document-1.js'
+import { getOrdDocument1ForTenant, ordDocument1 } from './data/document-1.js'
 import { getOrdDocument2ForTenant } from './data/document-2.js'
 
 export async function ordDocumentV1Api(fastify: FastifyInstance): Promise<void> {
@@ -22,8 +22,20 @@ export async function ordDocumentV1Api(fastify: FastifyInstance): Promise<void> 
   })
 
   // Serve the unprotected, system instance unaware ORD Document #1
-  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/1`, async () => {
-    return ordDocument1
+  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/1`, async (req: FastifyRequest) => {
+    const tenantIds = getTenantIdsFromHeader(req)
+
+    if (tenantIds.localTenantId) {
+      // This is the `sap.foo.bar:open-local-tenant-id:v1` access strategy
+      return getOrdDocument1ForTenant(tenantIds.localTenantId)
+    } else if (tenantIds.sapGlobalTenantId) {
+      // This is the `sap.foo.bar:open-global-tenant-id:v1` access strategy
+      return getOrdDocument1ForTenant(globalTenantIdToLocalTenantIdMapping[tenantIds.sapGlobalTenantId])
+    } else {
+      // Return the ORD Document 2 without tenant specific modifications
+      // This is the `open` access strategy
+      return ordDocument1
+    }
   })
 
   // SYSTEM INSTANCE AWARE ORD information

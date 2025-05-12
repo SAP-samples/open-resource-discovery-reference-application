@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { APIResource, EntityType, EventResource, ORDDocument } from '@sap/open-resource-discovery'
 import { odmFinanceCostObjectEventConfig } from '../../../../event/odm-finance-costobject/v1/config.js'
 
@@ -35,7 +36,6 @@ const astronomyV1ApiResource: APIResource = {
   lastUpdate: '2023-02-03T06:44:10Z',
   visibility: 'public',
   releaseStatus: 'active',
-  systemInstanceAware: false,
   partOfPackage: ordReferenceAppApiPackage.ordId,
   partOfConsumptionBundles: [{ ordId: noAuthConsumptionBundle.ordId }],
   apiProtocol: 'rest',
@@ -121,4 +121,23 @@ export const ordDocument1: ORDDocument = {
       removalDate: '2021-03-12T06:44:10Z',
     },
   ],
+}
+
+/**
+ * As we want to demonstrate a tenant specific ORD Document,
+ * We'll return a different one per tenant, respecting some tenant configurations
+ */
+export function getOrdDocument1ForTenant(localTenantId?: string): ORDDocument {
+  const tenantSpecificOrdDocument1 = _.cloneDeep(ordDocument1)
+
+  tenantSpecificOrdDocument1.perspective = 'system-instance'
+
+  // If we don't provide a local tenant Id, we'll return the ORD document without tenant specific modifications
+  // An alternative to this could be to throw an invalid user input error and require to provide a tenant
+  if (!localTenantId) {
+    return tenantSpecificOrdDocument1
+  }
+  tenantSpecificOrdDocument1.description += `\nThis ORD Document is specific to tenant "${localTenantId}"`
+
+  return tenantSpecificOrdDocument1
 }
