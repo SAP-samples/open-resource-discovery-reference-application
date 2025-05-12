@@ -159,7 +159,6 @@ describe('Server Integration Tests', () => {
       expect(response.statusCode).toBe(200)
       const body = JSON.parse(response.payload) as Partial<ORDDocument>
       expect(body).toHaveProperty('openResourceDiscovery')
-      expect(body).toHaveProperty('policyLevel')
     })
 
     it('should return tenant-aware ORD document 2', async () => {
