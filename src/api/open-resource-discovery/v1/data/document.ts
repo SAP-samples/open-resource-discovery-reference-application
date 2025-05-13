@@ -186,6 +186,7 @@ export function getOrdDocumentForTenant(tenantId?: string): ORDDocument {
     return tenantSpecificOrdDocument
   }
 
+  // Add describedSystemInstance with the local tenant ID
   tenantSpecificOrdDocument.describedSystemInstance = {
     localId: tenantId,
   }
