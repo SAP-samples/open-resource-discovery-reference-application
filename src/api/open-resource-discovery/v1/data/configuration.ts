@@ -15,7 +15,6 @@ export const ordConfiguration: ORDConfiguration = {
         url: '/open-resource-discovery/v1/documents/system-instance',
         accessStrategies: [customAccessStrategyGlobalTenantId, customAccessStrategyLocalTenantId],
         perspective: "system-instance"
-
       },
     ],
   },

@@ -24,7 +24,7 @@ export interface ORDDocument {
   /**
    * Version of the Open Resource Discovery specification that is used to describe this document.
    */
-  openResourceDiscovery: "1.0" | "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.8" | "1.9" | "1.10";
+  openResourceDiscovery: "1.0" | "1.1" | "1.2" | "1.3" | "1.4" | "1.5" | "1.6" | "1.7" | "1.8" | "1.9" | "1.10" | "1.11" | "1.12";
   /**
    * Optional description of the ORD document itself.
    * Please note that this information is NOT further processed or considered by an ORD aggregator.
