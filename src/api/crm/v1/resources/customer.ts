@@ -17,6 +17,7 @@ export async function customersResource(fastify: FastifyInstance): Promise<void>
   await fastify.register(fastifyBasicAuth, basicAuthConfig)
   fastify.addHook('onRequest', fastify.basicAuth)
   fastify.get('/', {}, getCustomersHandler)
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   fastify.get('/:id', { schema: getCustomersByIdSchema }, getCustomerByIdHandler)
 }
 

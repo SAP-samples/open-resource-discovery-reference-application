@@ -30,6 +30,7 @@ describe('Server Integration Tests', () => {
       await app.register(sapEventCatalogDefinition, { prefix: '/sap-events/v1' })
       await app.register(ordDocumentV1Api, {})
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error('Error during plugin registration:', err)
       throw err
     }
@@ -39,6 +40,7 @@ describe('Server Integration Tests', () => {
     try {
       await app.close()
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error('Error closing the server:', err)
     }
   })

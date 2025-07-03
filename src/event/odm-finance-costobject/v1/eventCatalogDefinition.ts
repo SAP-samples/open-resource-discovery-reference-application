@@ -13,20 +13,22 @@ export const openApiResourceName = 'openapi'
  * This will later be referenced through ORD.
  */
 export async function sapEventCatalogDefinition(fastify: FastifyInstance): Promise<void> {
-  fastify.get('/odm-finance-costobject.asyncapi2.json', {}, getSapEventCatalogDefinitionHandler)
+  await fastify.get('/odm-finance-costobject.asyncapi2.json', {}, getSapEventCatalogDefinitionHandler)
 }
 
 async function getSapEventCatalogDefinitionHandler(req: FastifyRequest): Promise<SapEventCatalog> {
   const tenantIds = getTenantIdsFromHeader(req)
   if (tenantIds.localTenantId) {
     // This is the `sap.foo.bar:open-local-tenant-id:v1` access strategy
-    return getOdmCostObjectSapEventCatalogDefinition(tenantIds.localTenantId)
+    return await getOdmCostObjectSapEventCatalogDefinition(tenantIds.localTenantId)
   } else if (tenantIds.sapGlobalTenantId) {
     // This is the `sap.foo.bar:open-global-tenant-id:v1` access strategy
-    return getOdmCostObjectSapEventCatalogDefinition(globalTenantIdToLocalTenantIdMapping[tenantIds.sapGlobalTenantId])
+    return await getOdmCostObjectSapEventCatalogDefinition(
+      globalTenantIdToLocalTenantIdMapping[tenantIds.sapGlobalTenantId],
+    )
   } else {
     // Return the definition without tenant specific modifications
     // This is the `open` access strategy
-    return getOdmCostObjectSapEventCatalogDefinition()
+    return await getOdmCostObjectSapEventCatalogDefinition()
   }
 }

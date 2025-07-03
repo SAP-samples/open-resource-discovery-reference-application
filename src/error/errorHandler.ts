@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import { FastifyError, FastifyReply, FastifyRequest } from 'fastify'
 import { BackendError } from '../shared/error/BackendError.js'
@@ -14,7 +12,7 @@ import { UnauthorizedError } from './UnauthorizedError.js'
  *
  * Please be aware that this is simplified and not as complete as it could be.
  */
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+
 export function errorHandler(err: Error | FastifyError | any, req: FastifyRequest, reply: FastifyReply): void {
   /** We always cast incoming errors into our own error classes */
   let castedError: BackendError
@@ -25,10 +23,9 @@ export function errorHandler(err: Error | FastifyError | any, req: FastifyReques
   } else if (err.message && err.validation) {
     // Duck type for Fastify Validation Error
     const dataPath = err.validation[0]?.dataPath
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
     castedError = new InputValidationError(err.message, dataPath)
   } else if (err.name === 'UnauthorizedError' || err.code === 'FST_BASIC_AUTH_MISSING_OR_BAD_AUTHORIZATION_HEADER') {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     castedError = new UnauthorizedError(err.message)
   } else if (err instanceof Error) {
     // Handle generic errors we couldn't handle so far
@@ -40,7 +37,6 @@ export function errorHandler(err: Error | FastifyError | any, req: FastifyReques
 
   req.log.error(`ERROR ${castedError.getHttpStatusCode()}`, castedError.getErrorResponse())
 
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
   reply
     .code(castedError.getHttpStatusCode())
     .header('Content-Type', 'application/json; charset=utf-8')

@@ -16,12 +16,12 @@ export async function ordDocumentV1Api(fastify: FastifyInstance): Promise<void> 
   // SYSTEM INSTANCE UNAWARE ORD information
 
   // Serve the .well-known ORD configuration
-  fastify.get('/.well-known/open-resource-discovery', async () => {
+  fastify.get('/.well-known/open-resource-discovery', () => {
     return ordConfiguration
   })
 
   // Serve the unprotected, static "system-version" ORD document
-  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/system-version`, async () => {
+  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/system-version`, () => {
     return ordDocument
   })
 
@@ -31,7 +31,7 @@ export async function ordDocumentV1Api(fastify: FastifyInstance): Promise<void> 
   // The result of this request will differ, depending on the tenant chosen
   // We'll implement this as an ORD access strategy, where the tenant ID is passed via Header
   // To show multiple options, we can offer both local tenant ID and global tenant ID for correlations
-  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/system-instance`, async (req: FastifyRequest) => {
+  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/system-instance`, (req: FastifyRequest) => {
     const tenantIds = getTenantIdsFromHeader(req)
 
     if (tenantIds.localTenantId) {

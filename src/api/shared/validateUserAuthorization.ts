@@ -20,11 +20,7 @@ export const basicAuthConfig = { validate: validateUserAuthorization, authentica
  *
  * @throws UnauthorizedError
  */
-export async function validateUserAuthorization(
-  username: string,
-  password: string,
-  req: FastifyRequest,
-): Promise<void> {
+export function validateUserAuthorization(username: string, password: string, req: FastifyRequest): void {
   if (apiUsersAndPasswords[username] && apiUsersAndPasswords[username].password === password) {
     const tenantId = apiUsersAndPasswords[username].tenantId
     // Add user info to the request that we've validated

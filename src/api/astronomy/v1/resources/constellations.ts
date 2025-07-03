@@ -12,6 +12,7 @@ export const openApiPaths: OpenAPIV3.PathsObject = {}
  */
 export async function constellationsResource(fastify: FastifyInstance): Promise<void> {
   fastify.get('/', {}, getConstellationsHandler)
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   fastify.get('/:id', { schema: getConstellationsByIdSchema }, getConstellationByIdHandler)
 }
 

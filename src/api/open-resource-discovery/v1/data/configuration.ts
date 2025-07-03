@@ -8,13 +8,13 @@ export const ordConfiguration: ORDConfiguration = {
       {
         url: '/open-resource-discovery/v1/documents/system-version',
         accessStrategies: [openAccessStrategy],
-        perspective: "system-version"
+        perspective: 'system-version',
       },
       // Serve dynamic metadata, requires system / tenant headers and the correct access strategy
       {
         url: '/open-resource-discovery/v1/documents/system-instance',
         accessStrategies: [customAccessStrategyGlobalTenantId, customAccessStrategyLocalTenantId],
-        perspective: "system-instance"
+        perspective: 'system-instance',
       },
     ],
   },

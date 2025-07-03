@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { getEventSource } from '../../shared/eventConfig.js'
 import { SapEventCatalog } from '../../shared/SapEventCatalog.js'
 import { costCenterCreatedType } from './CostCenter.js'

@@ -21,6 +21,7 @@ const server = fastify({
   exposeHeadRoutes: true,
 })
 
+// eslint-disable-next-line no-console
 initServer().catch(console.error)
 
 async function initServer(): Promise<void> {
@@ -52,6 +53,7 @@ async function initServer(): Promise<void> {
 }
 
 function closeGracefully(signal: string): void {
+  // eslint-disable-next-line no-console
   console.log(`Received signal to terminate: ${signal}`)
   process.exit()
 }
