@@ -25,7 +25,7 @@ export async function customersResource(fastify: FastifyInstance): Promise<void>
 // GET /customers                  //
 //////////////////////////////////////////
 
-async function getCustomersHandler(req: FastifyRequest): Promise<CustomersResponse> {
+function getCustomersHandler(req: FastifyRequest): CustomersResponse {
   if (!req.user || !req.user.tenantId) {
     throw new NotFoundError('No user / tenant ID provided')
   } else {

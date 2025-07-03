@@ -20,7 +20,11 @@ export const basicAuthConfig = { validate: validateUserAuthorization, authentica
  *
  * @throws UnauthorizedError
  */
-export function validateUserAuthorization(username: string, password: string, req: FastifyRequest): void {
+export async function validateUserAuthorization(
+  username: string,
+  password: string,
+  req: FastifyRequest,
+): Promise<void> {
   if (apiUsersAndPasswords[username] && apiUsersAndPasswords[username].password === password) {
     const tenantId = apiUsersAndPasswords[username].tenantId
     // Add user info to the request that we've validated
@@ -40,19 +44,12 @@ export function getTenantIdsFromHeader(req: FastifyRequest): {
   localTenantId: string | undefined
   sapGlobalTenantId: string | undefined
 } {
-  let localTenantId = _.isArray(req.headers['local-tenant-id'])
-    ? req.headers['local-tenant-id'].join()
-    : req.headers['local-tenant-id']
-  let sapGlobalTenantId = _.isArray(req.headers['global-tenant-id'])
-    ? req.headers['global-tenant-id'].join()
-    : req.headers['global-tenant-id']
-
-  if (req.query && (req.query as Record<string, string>)['local-tenant-id']) {
-    localTenantId = (req.query as Record<string, string>)['local-tenant-id']
-  }
-  if (req.query && (req.query as Record<string, string>)['global-tenant-id']) {
-    sapGlobalTenantId = (req.query as Record<string, string>)['global-tenant-id']
-  }
+  const localTenantId = _.isArray(req.headers['sap-local-tenant-id'])
+    ? req.headers['sap-local-tenant-id'].join()
+    : req.headers['sap-local-tenant-id']
+  const sapGlobalTenantId = _.isArray(req.headers['sap-global-tenant-id'])
+    ? req.headers['sap-global-tenant-id'].join()
+    : req.headers['sap-global-tenant-id']
 
   return {
     localTenantId,
