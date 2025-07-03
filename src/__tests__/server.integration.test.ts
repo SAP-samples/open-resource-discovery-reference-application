@@ -8,7 +8,7 @@ import { ordDocumentV1Api } from '../../src/api/open-resource-discovery/v1/index
 import { errorHandler } from '../../src/error/errorHandler.js'
 import { sapEventCatalogDefinition } from '../../src/event/odm-finance-costobject/v1/eventCatalogDefinition.js'
 import { Constellation } from '../api/astronomy/v1/models/Constellation.js'
-import { ORDDocument } from '@sap/open-resource-discovery'
+import { ORDDocument } from '@open-resource-discovery/specification'
 import { SapEventCatalog } from '../event/shared/SapEventCatalog.js'
 import { ErrorItem } from '../shared/model/ErrorResponses.js'
 

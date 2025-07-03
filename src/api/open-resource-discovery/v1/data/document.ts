@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { APIResource, EntityType, EventResource, ORDDocument } from '@sap/open-resource-discovery'
+import { APIResource, EntityType, EventResource, ORDDocument } from '@open-resource-discovery/specification'
 import { odmFinanceCostObjectEventConfig } from '../../../../event/odm-finance-costobject/v1/config.js'
 import { tenants } from '../../../../data/user/tenants.js'
 import { crmV1ApiConfig } from '../../../crm/v1/config.js'

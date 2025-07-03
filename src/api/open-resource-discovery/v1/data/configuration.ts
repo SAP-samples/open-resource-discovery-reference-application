@@ -1,4 +1,4 @@
-import { ORDConfiguration } from '@sap/open-resource-discovery'
+import { ORDConfiguration } from '@open-resource-discovery/specification'
 import { customAccessStrategyLocalTenantId, customAccessStrategyGlobalTenantId, openAccessStrategy } from './shared.js'
 
 export const ordConfiguration: ORDConfiguration = {

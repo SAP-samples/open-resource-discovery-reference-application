@@ -5,7 +5,7 @@ import {
   Product,
   SystemInstance,
   SystemVersion,
-} from '@sap/open-resource-discovery'
+} from '@open-resource-discovery/specification'
 import path from 'path'
 import { PUBLIC_URL } from '../../../../config.js'
 import { readFileSync } from 'fs'
