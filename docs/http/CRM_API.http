@@ -88,4 +88,4 @@ content-type: application/json
 
 GET {{apiBasePath}}/crm/v1/openapi/oas3.json HTTP/1.1
 content-type: application/json
-sap-global-tenant-id: {{sapGlobalTenantId}}
+global-tenant-id: {{sapGlobalTenantId}}

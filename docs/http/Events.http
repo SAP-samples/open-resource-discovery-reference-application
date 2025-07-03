@@ -24,4 +24,4 @@ content-type: application/json
 
 GET {{apiBasePath}}/sap-events/v1/odm-finance-costobject.asyncapi2.json HTTP/1.1
 content-type: application/json
-sap-global-tenant-id: {{sapGlobalTenantId}}
+global-tenant-id: {{sapGlobalTenantId}}

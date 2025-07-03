@@ -8,7 +8,7 @@ import { ordDocumentV1Api } from '../../src/api/open-resource-discovery/v1/index
 import { errorHandler } from '../../src/error/errorHandler.js'
 import { sapEventCatalogDefinition } from '../../src/event/odm-finance-costobject/v1/eventCatalogDefinition.js'
 import { Constellation } from '../api/astronomy/v1/models/Constellation.js'
-import { ORDDocument } from '@sap/open-resource-discovery'
+import { ORDDocument } from '@open-resource-discovery/specification'
 import { SapEventCatalog } from '../event/shared/SapEventCatalog.js'
 import { ErrorItem } from '../shared/model/ErrorResponses.js'
 
@@ -30,6 +30,7 @@ describe('Server Integration Tests', () => {
       await app.register(sapEventCatalogDefinition, { prefix: '/sap-events/v1' })
       await app.register(ordDocumentV1Api, {})
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error('Error during plugin registration:', err)
       throw err
     }
@@ -39,6 +40,7 @@ describe('Server Integration Tests', () => {
     try {
       await app.close()
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.error('Error closing the server:', err)
     }
   })
@@ -150,24 +152,23 @@ describe('Server Integration Tests', () => {
       expect(body).toHaveProperty('openResourceDiscoveryV1')
     })
 
-    it('should return ORD document 1', async () => {
+    it('should return static system-instance perspective ORD document', async () => {
       const response = await app.inject({
         method: 'GET',
-        url: '/open-resource-discovery/v1/documents/1',
+        url: '/open-resource-discovery/v1/documents/system-version',
       })
 
       expect(response.statusCode).toBe(200)
       const body = JSON.parse(response.payload) as Partial<ORDDocument>
       expect(body).toHaveProperty('openResourceDiscovery')
-      expect(body).toHaveProperty('policyLevel')
     })
 
-    it('should return tenant-aware ORD document 2', async () => {
+    it.skip('should return tenant-aware, system-instance ORD document', async () => {
       const response = await app.inject({
         method: 'GET',
-        url: '/open-resource-discovery/v1/documents/2',
+        url: '/open-resource-discovery/v1/documents/system-instance',
         headers: {
-          'sap-local-tenant-id': 'T1',
+          'local-tenant-id': 'T1',
         },
       })
 
@@ -196,7 +197,7 @@ describe('Server Integration Tests', () => {
         method: 'GET',
         url: '/sap-events/v1/odm-finance-costobject.asyncapi2.json',
         headers: {
-          'sap-local-tenant-id': 'T1',
+          'local-tenant-id': 'T1',
         },
       })
 

@@ -4,8 +4,7 @@ import { globalTenantIdToLocalTenantIdMapping } from '../../../data/user/tenantM
 import { getTenantIdsFromHeader } from '../../shared/validateUserAuthorization.js'
 import { ordDocumentApiV1Config } from './config.js'
 import { ordConfiguration } from './data/configuration.js'
-import { ordDocument1 } from './data/document-1.js'
-import { getOrdDocument2ForTenant } from './data/document-2.js'
+import { getOrdDocumentForTenant, ordDocument } from './data/document.js'
 
 export async function ordDocumentV1Api(fastify: FastifyInstance): Promise<void> {
   fastify.log.info(`Registering ${ordDocumentApiV1Config.apiName}...`)
@@ -17,34 +16,34 @@ export async function ordDocumentV1Api(fastify: FastifyInstance): Promise<void> 
   // SYSTEM INSTANCE UNAWARE ORD information
 
   // Serve the .well-known ORD configuration
-  fastify.get('/.well-known/open-resource-discovery', async () => {
+  fastify.get('/.well-known/open-resource-discovery', () => {
     return ordConfiguration
   })
 
-  // Serve the unprotected, system instance unaware ORD Document #1
-  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/1`, async () => {
-    return ordDocument1
+  // Serve the unprotected, static "system-version" ORD document
+  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/system-version`, () => {
+    return ordDocument
   })
 
-  // SYSTEM INSTANCE AWARE ORD information
+  // DYNAMIC (system instance perspective) ORD information
 
   // Serve the unprotected, but system instance aware ORD Document #2
   // The result of this request will differ, depending on the tenant chosen
   // We'll implement this as an ORD access strategy, where the tenant ID is passed via Header
   // To show multiple options, we can offer both local tenant ID and global tenant ID for correlations
-  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/2`, async (req: FastifyRequest) => {
+  fastify.get(`/${ordDocumentApiV1Config.apiEntryPoint}/documents/system-instance`, (req: FastifyRequest) => {
     const tenantIds = getTenantIdsFromHeader(req)
 
     if (tenantIds.localTenantId) {
       // This is the `sap.foo.bar:open-local-tenant-id:v1` access strategy
-      return getOrdDocument2ForTenant(tenantIds.localTenantId)
+      return getOrdDocumentForTenant(tenantIds.localTenantId)
     } else if (tenantIds.sapGlobalTenantId) {
       // This is the `sap.foo.bar:open-global-tenant-id:v1` access strategy
-      return getOrdDocument2ForTenant(globalTenantIdToLocalTenantIdMapping[tenantIds.sapGlobalTenantId])
+      return getOrdDocumentForTenant(globalTenantIdToLocalTenantIdMapping[tenantIds.sapGlobalTenantId])
     } else {
-      // Return the ORD Document 2 without tenant specific modifications
-      // This is the `open` access strategy
-      return getOrdDocument2ForTenant()
+      throw new Error(
+        'No tenant ID provided in the request header via local-tenant-id or global-tenant-id. Hint: for demo purposes it can be set in the query string as well, e.g. ?local-tenant-id=T1',
+      )
     }
   })
 }

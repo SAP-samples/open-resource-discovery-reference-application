@@ -23,7 +23,7 @@ jobs:
         run: npm run build
 
       - name: ESLint
-        run: npm run eslint:ci
+        run: npm run lint:ci
 
       - name: Prettier
         run: npm run prettier:ci

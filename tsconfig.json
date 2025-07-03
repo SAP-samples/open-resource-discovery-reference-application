@@ -11,7 +11,8 @@
     "paths": {
       "src/*": ["src/*"]
     },
-    "types": ["node"]
+    "types": ["node"],
+    "isolatedModules": true
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules", "dist", "deps"]

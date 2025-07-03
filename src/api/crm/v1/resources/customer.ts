@@ -17,6 +17,7 @@ export async function customersResource(fastify: FastifyInstance): Promise<void>
   await fastify.register(fastifyBasicAuth, basicAuthConfig)
   fastify.addHook('onRequest', fastify.basicAuth)
   fastify.get('/', {}, getCustomersHandler)
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   fastify.get('/:id', { schema: getCustomersByIdSchema }, getCustomerByIdHandler)
 }
 
@@ -24,7 +25,7 @@ export async function customersResource(fastify: FastifyInstance): Promise<void>
 // GET /customers                  //
 //////////////////////////////////////////
 
-async function getCustomersHandler(req: FastifyRequest): Promise<CustomersResponse> {
+function getCustomersHandler(req: FastifyRequest): CustomersResponse {
   if (!req.user || !req.user.tenantId) {
     throw new NotFoundError('No user / tenant ID provided')
   } else {

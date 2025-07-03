@@ -1,9 +1,17 @@
-import { AccessStrategy, ConsumptionBundle, Package, Product, SystemInstance } from '@sap/open-resource-discovery'
+import {
+  AccessStrategy,
+  ConsumptionBundle,
+  Package,
+  Product,
+  SystemInstance,
+  SystemVersion,
+} from '@open-resource-discovery/specification'
 import path from 'path'
 import { PUBLIC_URL } from '../../../../config.js'
 import { readFileSync } from 'fs'
 
 const packageJson = JSON.parse(readFileSync(path.resolve(process.cwd(), 'package.json'), 'utf-8')) as {
+  version: string
   description: string
 }
 
@@ -20,6 +28,9 @@ const vendorSapReference = 'sap:vendor:SAP:'
 
 export const describedSystemInstance: SystemInstance = {
   baseUrl: PUBLIC_URL,
+}
+export const describedSystemVersion: SystemVersion = {
+  version: packageJson.version,
 }
 
 export const product: Product = {

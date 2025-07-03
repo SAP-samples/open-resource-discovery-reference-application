@@ -114,7 +114,7 @@ export function getCrmV1ApiDefinition(tenantId?: string): OpenAPIV3.Document {
           description: 'Wrapper object for customer field extensions',
           properties: fieldExtensions,
         }
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
         openApiDefinition.components!.schemas!.Customer = customerSchemaExtended
       }
     }

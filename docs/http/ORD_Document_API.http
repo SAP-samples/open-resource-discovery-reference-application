@@ -52,7 +52,7 @@ content-type: application/json
 # 2) Provide global tenant ID that needs to be mapped by this application to its local tenant id
 GET {{apiBasePath}}/open-resource-discovery/v1/documents/2 HTTP/1.1
 content-type: application/json
-sap-global-tenant-id: {{sapGlobalTenantId}}
+global-tenant-id: {{sapGlobalTenantId}}
 
 #################################################################################
 
@@ -60,7 +60,7 @@ sap-global-tenant-id: {{sapGlobalTenantId}}
 
 GET {{apiBasePath}}/open-resource-discovery/v1/documents/2 HTTP/1.1
 content-type: application/json
-sap-local-tenant-id: {{localTenantId}}
+local-tenant-id: {{localTenantId}}
 
 #################################################################################
 
@@ -76,7 +76,7 @@ content-type: application/json
 #   * GET the resource definition file according to the `accessType` (here: `custom`)
 GET {{apiBasePath}}/crm/v1/openapi/oas3.json HTTP/1.1
 content-type: application/json
-sap-global-tenant-id: {{sapGlobalTenantId}}
+global-tenant-id: {{sapGlobalTenantId}}
 
 #################################################################################
 
