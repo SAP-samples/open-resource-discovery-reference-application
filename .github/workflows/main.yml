@@ -46,6 +46,7 @@ jobs:
     #   !contains(needs.*.result, 'cancelled') &&
     #   !contains(needs.*.result, 'failure') &&
     #   github.ref == 'refs/heads/main'
+    container: cloudfoundry/cli:latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -56,10 +57,6 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Install CF CLI
+      - name: Test CF
         run: |
-          wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo gpg --dearmor -o /usr/share/keyrings/cli.cloudfoundry.org.gpg
-          echo "deb [signed-by=/usr/share/keyrings/cli.cloudfoundry.org.gpg] https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-          apt-get update
-          apt-get install cf8-cli
           cf --help
