@@ -54,17 +54,17 @@ export const ordReferenceAppApiPackage: Package = {
   packageLinks: [
     {
       type: 'license',
-      url: 'https://github.com/SAP-samples/open-resource-discovery-reference-application/blob/main/LICENSE',
+      url: 'https://github.com/open-resource-discovery/reference-application/blob/main/LICENSE',
     },
   ],
   links: [
     {
       title: 'ORD Reference app description',
-      url: 'https://github.com/SAP-samples/open-resource-discovery-reference-application/blob/main/README.md',
+      url: 'https://github.com/open-resource-discovery/reference-application/blob/main/README.md',
     },
     {
       title: 'ORD Reference app GitHub repository',
-      url: 'https://github.com/SAP-samples/open-resource-discovery-reference-application/',
+      url: 'https://github.com/open-resource-discovery/reference-application/',
     },
   ],
   labels: {
@@ -101,7 +101,7 @@ export const basicAuthConsumptionBundle: ConsumptionBundle = {
       type: 'custom',
       customType: `${appNamespace}:basicAuthCredentialExchange:v1`,
       customDescription:
-        'The BasicAuth credentials must be created and retrieved manually.\n Please refer to the documentation on the [ORD Reference App API access](https://github.com/SAP-samples/open-resource-discovery-reference-application#access-strategies).',
+        'The BasicAuth credentials must be created and retrieved manually.\n Please refer to the documentation on the [ORD Reference App API access](https://github.com/open-resource-discovery/reference-application#access-strategies).',
     },
   ],
 }
@@ -123,7 +123,7 @@ export const customAccessStrategyGlobalTenantId: AccessStrategy = {
     'The metadata information is openly accessible but system instance aware.\n' +
     'The tenant is selected by providing a SAP global tenant ID header.\n' +
     'To understand how to use this access strategy, please read the documentation on the ' +
-    '[ORD Reference App Access Strategies](https://github.com/SAP-samples/open-resource-discovery-reference-application#access-strategies).',
+    '[ORD Reference App Access Strategies](https://github.com/open-resource-discovery/reference-application#access-strategies).',
 }
 
 /**
@@ -136,5 +136,5 @@ export const customAccessStrategyLocalTenantId: AccessStrategy = {
     'The metadata information is openly accessible but system instance aware.\n' +
     'The tenant is selected by providing a local tenant ID header.\n' +
     'To understand how to use this access strategy, please read the documentation on the ' +
-    '[ORD Reference App Access Strategies](https://github.com/SAP-samples/open-resource-discovery-reference-application#access-strategies).',
+    '[ORD Reference App Access Strategies](https://github.com/open-resource-discovery/reference-application#access-strategies).',
 }
