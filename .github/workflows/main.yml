@@ -34,6 +34,13 @@ jobs:
       - name: Test
         run: npm run test:ci
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: |
+            dist
+            /package*.json
+
   Deploy:
     needs: [Build]
     runs-on: ubuntu-latest
@@ -48,9 +55,10 @@ jobs:
     #   github.ref == 'refs/heads/main'
     container: cloudfoundry/cli:latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Download pre-built app artifact
+        uses: actions/download-artifact@v4
         with:
-          fetch-depth: 0
+          name: app-build
 
       # - uses: actions/setup-node@v4
       #   with:
