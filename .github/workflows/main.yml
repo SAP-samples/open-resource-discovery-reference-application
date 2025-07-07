@@ -36,10 +36,10 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: app
+          name: app-build
           path: |
-            dist
-            /package*.json
+            ./dist
+            ./package*.json
 
   Deploy:
     needs: [Build]
@@ -58,7 +58,7 @@ jobs:
       - name: Download pre-built app artifact
         uses: actions/download-artifact@v4
         with:
-          name: app
+          name: app-build
 
       # - uses: actions/setup-node@v4
       #   with:
